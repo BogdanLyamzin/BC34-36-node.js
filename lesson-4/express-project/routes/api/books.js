@@ -12,7 +12,7 @@ const addSchema = Joi.object({
     author: Joi.string().required(),
 })
 
-router.get("/", async(req, res)=> {
+router.get("/", async(req, res, next)=> {
     try {
         const result = await books.getAll();
         res.json(result);
@@ -56,7 +56,7 @@ router.post("/", async(req, res, next)=> {
     }
 })
 
-router.put("/:id", async(req, res)=> {
+router.put("/:id", async(req, res, next)=> {
     try {
         const {error} = addSchema.validate(req.body);
         if(error) {
@@ -74,7 +74,7 @@ router.put("/:id", async(req, res)=> {
     }
 })
 
-router.delete("/:id", async(req, res)=> {
+router.delete("/:id", async(req, res, next)=> {
     try {
         const {id} = req.params;
         const result = await books.removeById(id);
